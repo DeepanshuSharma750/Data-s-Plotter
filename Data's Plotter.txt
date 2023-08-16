@@ -1,0 +1,162 @@
+import numpy as np
+import pandas as pd 
+import seaborn as sn
+from chart_studio import plotly as pl
+import plotly.offline as po 
+import cufflinks as cf
+po.init_notebook_mode(connected=True)
+cf.go_offline()
+def Create_dataframe(data):
+    if(data==1):
+        x=np.random.rand(100,5)
+        df1=pd.DataFrame(x,columns=['A','B','C','D','E'])
+    elif(data==2):
+        x=[0,0,0,0,0]
+        r1=[0,0,0,0,0]
+        r2=[0,0,0,0,0]
+        r3=[0,0,0,0,0]
+        r4=[0,0,0,0,0]
+        r5=[0,0,0,0,0]
+        print('Enter the values of columns')
+        i=0
+        for i in [0,1,2,3,4]:
+            x[i]=int(input('Enter any number'))
+            i=i+1
+        print('Enter the values of row1')
+        i=0
+        for i in [0,1,2,3,4]:
+            r1[i]=int(input('Enter any number'))
+            i=i+1
+        print('Enter the values of row2')
+        i=0
+        for i in [0,1,2,3,4]:
+            r2[i]=int(input('Enter any number'))
+            i=i+1
+        print('Enter the values of row3')
+        i=0
+        for i in [0,1,2,3,4]:
+            r3[i]=int(input('Enter any number'))
+            i=i+1
+        print('Enter the values of row4')
+        i=0
+        for i in [0,1,2,3,4]:
+            r4[i]=int(input('Enter any number'))
+            i=i+1
+        df1=pd.DataFrame([r1,r2,r3,r4],columns=x)
+    elif(data==3):
+        file=input("Enter the file name:-")
+        df1=pd.read_csv(file)
+    return df1.head()
+def plotter1(plot):
+    if(plot==1):
+        finalplot=df.iplot(kind='scatter')
+    elif(plot==2):
+        finalplot=df.iplot(kind='scatter',mode='markers',symbol='x',colorscale='paired')
+    elif(plot==3):
+        finalplot=df.iplot(kind='bar')    
+    elif(plot==4):
+        finalplot=df.iplot(kind='hist') 
+    elif(plot==5):
+        finalplot=df.iplot(kind='box')
+    elif(plot==6):
+        finalplot=df.iplot(kind='surface')
+    else:
+        print('Enter the number between 1 and 7')
+def plotter2(plot):
+    col=float(input("enter number of column you want to plot:-"))
+    if(col==1):
+        colm=input("enter column name what kind of column you want to plot:-")
+        if(plot==1):
+            finalplot=df[colm].iplot(kind='scatter')
+        elif(plot==2):
+            finalplot=df[colm].iplot(kind='scatter',mode='markers',symbol='x',colorscale='paired')
+        elif(plot==3):
+            finalplot=df[colm].iplot(kind='bar')    
+        elif(plot==4):
+            finalplot=df[colm].iplot(kind='hist') 
+        elif(plot==5):
+            finalplot=df[colm].iplot(kind='box')
+        elif(plot==6 or plot==7):
+            print("Surface plot and Bubble plot required more than 1 column")
+        else:
+            print('Enter the number between 1 and 8') 
+    elif(col==2):
+        x=input("Enter the first column:-")
+        y=input("Enter the second column:-")
+        if(plot==1):
+            finalplot=df[x,y].iplot(kind='scatter')
+        elif(plot==2):
+            finalplot=df[x,y].iplot(kind='scatter',mode='markers',symbol='x',colorscale='paired')
+        elif(plot==3):
+            finalplot=df[x,y].iplot(kind='bar')    
+        elif(plot==4):
+            finalplot=df[x,y].iplot(kind='hist') 
+        elif(plot==5):
+            finalplot=df[x,y].iplot(kind='box')
+        elif(plot==6):
+            finalplot=df[x,y].iplot(kind='surface')
+        elif(plot==7):
+            size=input('Enter the size column for bubble plot') 
+            finalplot=df[x,y].iplot(kind='bubble',x=x,y=y,size=size) 
+        else:
+            print("Enter the number between 1 to 8") 
+    elif(col==2):
+        x=input("Enter the first column:-")
+        y=input("Enter the second column:-")
+        z=input('Enter the third column:-')
+        if(plot==1):
+            finalplot=df[x,y,z].iplot(kind='scatter')
+        elif(plot==2):
+            finalplot=df[x,y,z].iplot(kind='scatter',mode='markers',symbol='x',colorscale='paired')
+        elif(plot==3):
+            finalplot=df[x,y,z].iplot(kind='bar')    
+        elif(plot==4):
+            finalplot=df[x,y,z].iplot(kind='hist') 
+        elif(plot==5):
+            finalplot=df[x,y,z].iplot(kind='box')
+        elif(plot==6):
+            finalplot=df[x,y,z].iplot(kind='surface')
+        elif(plot==7):
+            size=input('Enter the size column for bubble plot') 
+            finalplot=df[x,y,z].iplot(kind='bubble',x=x,y=y,z=z,size=size) 
+        else:
+            print("Enter the number between 1 to 8") 
+             
+ def main(cat):
+    if (cat==1):
+        print('Enter any number between 1 to 6')
+        print('1:-Line Plot')
+        print('2:-Scatter Plot')
+        print('3:-Bar Plot')
+        print('4:-Histogram Plot')
+        print('5:-Box Plot')
+        print('6:-surface Plot')
+        plot=int(input('Enter any number between 1 to 6-'))
+        output=plotter1(plot)
+    elif (cat==2):
+        print('Enter any number between 1 to 7')
+        print('1:-Line Plot')
+        print('2:-Scatter Plot')
+        print('3:-Bar Plot')
+        print('4:-Histogram Plot')
+        print('5:-Box Plot')
+        print('6:-surface Plot')
+        print('7:-Bubble Plot')
+        plot=int(input('Enter any number between 1 to 7:_'))
+        output=plotter2(plot)
+    else:
+        print('Please enter 1 or 2')
+        
+ print("Select the type of data you need to plot by write(1,2 and 3):-")
+print('1:-Random data with 100 rows and 5 columns')
+print('2:-Customize data frame  of 5 columns and 4 rows')
+print('Upload csv\json\text file')
+data=int(input('Enter any one of the word 1,2 and 3:-'))
+df=Create_dataframe(data)
+df
+print("Your dataframe head given below check plot using cufflinks")
+df.head()
+print('What kind of plot you need ,the complete data plot or specific columns plot')
+cat=int(input('Press 1 for plotting all columns or press 2 for plotting specifying columns'))
+main(cat)
+               
